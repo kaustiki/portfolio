@@ -1,35 +1,30 @@
-const ThemeManager = {
-    init() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        this.bindToggle();
-    },
-    
-    bindToggle() {
-        const toggleBtn = document.querySelector('.nav__theme-toggle');
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', () => this.toggle());
-        }
-    },
-    
-    toggle() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        if (window.NeuralPattern) {
-            window.NeuralPattern.regenerate();
-        }
-    },
-    
-    getCurrentTheme() {
-        return document.documentElement.getAttribute('data-theme');
-    }
-};
+const root = document.documentElement;
 
-document.addEventListener('DOMContentLoaded', () => {
-    ThemeManager.init();
+function stored() {
+    try { return localStorage.getItem('theme'); } catch { return null; }
+}
+
+function apply(theme) {
+    root.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0d0d0f' : '#ffffff');
+}
+
+// initial: saved choice, else the OS preference
+const saved = stored();
+apply(saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+
+// follow the OS only while the user has made no explicit choice
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!stored()) apply(e.matches ? 'dark' : 'light');
 });
 
-window.ThemeManager = ThemeManager;
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        apply(next);
+        try { localStorage.setItem('theme', next); } catch { /* private mode */ }
+    });
+});

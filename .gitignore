@@ -1,0 +1,7 @@
+node_modules/
+.venv/
+.env
+.DS_Store
+*.log
+.opencode/node_modules/
+.opencode/bun.lock

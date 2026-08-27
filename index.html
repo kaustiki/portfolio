@@ -2,66 +2,85 @@
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akurati Kaustiki | Computer Science Engineer</title>
-    <meta name="description" content="Portfolio of Akurati Kaustiki - Computer Science Engineer specializing in AI/ML and backend systems">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+    <title>Akurati Kaustiki | Forward Deployed Engineer</title>
+    <meta name="description" content="Akurati Kaustiki — Forward Deployed Engineer working on AI/ML, LLM and agentic systems. M.Tech in AI & ML, BITS Pilani.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='monospace'>AK</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="neural-bg" id="neural-bg"></div>
-    <header class="nav">
-        <nav class="nav__container">
-            <a href="#hero" class="nav__logo">AK</a>
-            <ul class="nav__links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="nav__theme-toggle" aria-label="Toggle theme">
-                <span class="theme-icon-light">○</span>
-                <span class="theme-icon-dark">●</span>
-            </button>
-            <button class="nav__hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </nav>
-    </header>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <canvas class="neural-bg" id="neural-bg" aria-hidden="true"></canvas>
 
-    <main>
+    <header class="nav" id="nav">
+        <div class="nav__container">
+            <a href="#hero" class="nav__logo">AK<span class="nav__logo-cursor">_</span></a>
+
+            <nav class="nav__menu" id="nav-menu" aria-label="Main">
+                <ul class="nav__links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav__actions">
+                <button class="nav__icon-btn" id="theme-toggle" aria-label="Toggle colour theme">
+                    <span class="theme-icon" aria-hidden="true">◐</span>
+                </button>
+                <button class="nav__icon-btn nav__hamburger" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="nav__backdrop" id="nav-backdrop" hidden></div>
+
+    <main id="main">
         <section id="hero" class="hero">
             <div class="hero__container">
-                <div class="hero__profile">
-                    <div class="hero__photo">
-                        <span class="hero__initials">AK</span>
+                <div class="hero__intro">
+                    <div class="hero__photo-wrap">
+                        <img class="hero__photo" id="hero-photo" src="assets/kaustiki.jpg"
+                             alt="Akurati Kaustiki" width="800" height="800" fetchpriority="high">
                     </div>
                     <div class="hero__info">
-                        <h1 class="hero__name">Akurati Kaustiki</h1>
-                        <p class="hero__title">Computer Science Engineer</p>
-                        <p class="hero__subtitle">M.Tech (AI & ML)</p>
+                        <p class="hero__eyebrow" id="hero-location"></p>
+                        <h1 class="hero__name" id="hero-name"></h1>
+                        <p class="hero__title" id="hero-title"></p>
+                        <p class="hero__subtitle" id="hero-subtitle"></p>
+                        <p class="hero__tagline" id="hero-tagline"></p>
+                        <div class="hero__actions" id="hero-actions"></div>
                     </div>
                 </div>
+
                 <div class="hero__terminal">
-                    <div class="terminal">
+                    <div class="terminal" id="terminal">
                         <div class="terminal__header">
                             <span class="terminal__dot"></span>
                             <span class="terminal__dot"></span>
                             <span class="terminal__dot"></span>
-                            <span class="terminal__title">akurati@portfolio ~ </span>
+                            <span class="terminal__title">akurati@portfolio — bash</span>
                         </div>
-                        <div class="terminal__output" id="terminal-output"></div>
-                        <div class="terminal__input-line">
-                            <span class="terminal__prompt">>>></span>
-                            <input type="text" class="terminal__input" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
-                            <span class="terminal__cursor"></span>
+                        <div class="terminal__body" id="terminal-body">
+                            <div class="terminal__output" id="terminal-output"></div>
+                            <label class="terminal__input-line" for="terminal-input">
+                                <span class="terminal__prompt">&gt;&gt;&gt;</span>
+                                <input type="text" class="terminal__input" id="terminal-input"
+                                       autocomplete="off" autocorrect="off" autocapitalize="off"
+                                       spellcheck="false" aria-label="Terminal command input"
+                                       enterkeyhint="send">
+                            </label>
                         </div>
+                        <div class="terminal__chips" id="terminal-chips" aria-label="Quick commands"></div>
                     </div>
                 </div>
             </div>
@@ -69,9 +88,10 @@
 
         <section id="about" class="section">
             <div class="section__container">
-                <h2 class="section__title">About</h2>
-                <div class="about__content">
+                <h2 class="section__title"><span class="section__num">01.</span> About</h2>
+                <div class="about">
                     <p class="about__summary" id="about-summary"></p>
+                    <div class="stats" id="stats-grid"></div>
                     <ul class="about__highlights" id="about-highlights"></ul>
                 </div>
             </div>
@@ -79,51 +99,48 @@
 
         <section id="skills" class="section">
             <div class="section__container">
-                <h2 class="section__title">Skills</h2>
-                <div class="skills__grid" id="skills-grid"></div>
-            </div>
-        </section>
-
-        <section id="projects" class="section">
-            <div class="section__container">
-                <h2 class="section__title">Projects</h2>
-                <div class="projects__tabs" id="projects-tabs"></div>
-                <div class="projects__grid" id="projects-grid"></div>
+                <h2 class="section__title"><span class="section__num">02.</span> Skills</h2>
+                <div class="skills" id="skills-grid"></div>
             </div>
         </section>
 
         <section id="experience" class="section">
             <div class="section__container">
-                <h2 class="section__title">Experience</h2>
+                <h2 class="section__title"><span class="section__num">03.</span> Experience</h2>
                 <div class="timeline" id="experience-timeline"></div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="section__container">
+                <h2 class="section__title"><span class="section__num">04.</span> Projects</h2>
+                <div class="filters" id="projects-filters" role="tablist" aria-label="Filter projects"></div>
+                <div class="projects" id="projects-grid"></div>
             </div>
         </section>
 
         <section id="education" class="section">
             <div class="section__container">
-                <h2 class="section__title">Education</h2>
+                <h2 class="section__title"><span class="section__num">05.</span> Education</h2>
                 <div class="timeline" id="education-timeline"></div>
+                <div class="subsection">
+                    <h3 class="subsection__title">Certifications &amp; Internships</h3>
+                    <div class="cards" id="credentials-grid"></div>
+                </div>
             </div>
         </section>
 
         <section id="finearts" class="section">
             <div class="section__container">
-                <h2 class="section__title">Fine Arts</h2>
-                <div class="finearts__grid" id="finearts-grid"></div>
+                <h2 class="section__title"><span class="section__num">06.</span> Beyond Code</h2>
+                <div class="cards" id="finearts-grid"></div>
             </div>
         </section>
 
-        <section id="certifications" class="section">
+        <section id="contact" class="section section--last">
             <div class="section__container">
-                <h2 class="section__title">Certifications</h2>
-                <div class="certifications__grid" id="certifications-grid"></div>
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <div class="section__container">
-                <h2 class="section__title">Contact</h2>
-                <div class="contact__content" id="contact-content"></div>
+                <h2 class="section__title"><span class="section__num">07.</span> Contact</h2>
+                <div class="contact" id="contact-content"></div>
             </div>
         </section>
     </main>
@@ -131,13 +148,14 @@
     <footer class="footer">
         <div class="footer__container">
             <p>&copy; <span id="year"></span> Akurati Kaustiki</p>
+            <p class="footer__note">Built from scratch — no frameworks.</p>
         </div>
     </footer>
 
     <script type="module" src="data/portfolio.js"></script>
     <script type="module" src="js/theme.js"></script>
     <script type="module" src="js/neural-pattern.js"></script>
-    <script type="module" src="js/terminal.js"></script>
     <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/terminal.js"></script>
 </body>
 </html>

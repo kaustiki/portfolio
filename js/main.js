@@ -1,252 +1,339 @@
-const App = {
-    init() {
-        this.renderAbout();
-        this.renderSkills();
-        this.renderProjects();
-        this.renderExperience();
-        this.renderEducation();
-        this.renderFineArts();
-        this.renderCertifications();
-        this.renderContact();
-        this.bindNavigation();
-        this.setYear();
-    },
-    
-    renderAbout() {
-        const data = window.portfolioData;
-        if (!data) return;
-        
-        const summaryEl = document.getElementById('about-summary');
-        const highlightsEl = document.getElementById('about-highlights');
-        
-        if (summaryEl) {
-            summaryEl.textContent = data.info.summary;
-        }
-        
-        if (highlightsEl) {
-            highlightsEl.innerHTML = data.highlights
-                .map(h => `<li>${h}</li>`)
-                .join('');
-        }
-    },
-    
-    renderSkills() {
-        const data = window.portfolioData;
-        if (!data) return;
-        
-        const gridEl = document.getElementById('skills-grid');
-        if (!gridEl) return;
-        
-        gridEl.innerHTML = Object.entries(data.skills)
-            .map(([category, skills]) => `
-                <div class="skills__category">
-                    <h3>${category}</h3>
-                    <ul class="skills__list">
-                        ${skills.map(s => `<li>${s}</li>`).join('')}
-                    </ul>
-                </div>
-            `).join('');
-    },
-    
-    renderProjects() {
-        const data = window.portfolioData;
-        if (!data) return;
-        
-        const tabsEl = document.getElementById('projects-tabs');
-        const gridEl = document.getElementById('projects-grid');
-        
-        const allTech = new Set();
-        data.projects.forEach(p => p.tech.forEach(t => allTech.add(t)));
-        const categories = ['All', ...Array.from(allTech)];
-        
-        if (tabsEl) {
-            tabsEl.innerHTML = categories
-                .map((cat, i) => `
-                    <button class="projects__tab ${i === 0 ? 'projects__tab--active' : ''}" data-filter="${cat}">
-                        ${cat}
-                    </button>
-                `).join('');
-            
-            tabsEl.querySelectorAll('.projects__tab').forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    tabsEl.querySelectorAll('.projects__tab').forEach(t => t.classList.remove('projects__tab--active'));
-                    e.target.classList.add('projects__tab--active');
-                    this.filterProjects(e.target.dataset.filter);
-                });
-            });
-        }
-        
-        this.filterProjects('All');
-    },
-    
-    filterProjects(filter) {
-        const data = window.portfolioData;
-        if (!data) return;
-        
-        const gridEl = document.getElementById('projects-grid');
-        if (!gridEl) return;
-        
-        const filtered = filter === 'All' 
-            ? data.projects 
-            : data.projects.filter(p => p.tech.includes(filter));
-        
-        gridEl.innerHTML = filtered
-            .map(p => `
-                <div class="projects__card">
-                    <h3>${p.title}</h3>
-                    <p class="projects__meta">${p.subtitle} | ${p.dates}</p>
-                    <p class="projects__description">${p.description}</p>
-                    <div class="projects__tech">
-                        ${p.tech.map(t => `<span>${t}</span>`).join('')}
-                    </div>
-                </div>
-            `).join('');
-    },
-    
-    renderExperience() {
-        const data = window.portfolioData;
-        if (!data) return;
-        
-        const timelineEl = document.getElementById('experience-timeline');
-        if (!timelineEl) return;
-        
-        timelineEl.innerHTML = data.experience
-            .map((exp, i) => `
-                <div class="timeline__item">
-                    <div class="timeline__entry">
-                        <span class="timeline__marker">*</span>
-                        ${i === 0 ? '<span class="timeline__head">HEAD</span>' : ''}
-                        <span class="timeline__title">${exp.role}</span>
-                    </div>
-                    <div class="timeline__connector">
-                        <span class="timeline__meta">${exp.company} | ${exp.dates}</span>
-                    </div>
-                    ${exp.details ? `
-                        <div class="timeline__connector">
-                            <ul class="timeline__details">
-                                ${exp.details.map(d => `<li>${d}</li>`).join('')}
-                            </ul>
-                        </div>
-                    ` : ''}
-                    ${i < data.experience.length - 1 ? '<div class="timeline__spacer"></div>' : ''}
-                </div>
-            `).join('');
-    },
-    
-    renderEducation() {
-        const data = window.portfolioData;
-        if (!data) return;
-        
-        const timelineEl = document.getElementById('education-timeline');
-        if (!timelineEl) return;
-        
-        timelineEl.innerHTML = data.education
-            .map((edu, i) => `
-                <div class="timeline__item">
-                    <div class="timeline__entry">
-                        <span class="timeline__marker">*</span>
-                        ${i === 0 ? '<span class="timeline__head">HEAD</span>' : ''}
-                        <span class="timeline__title">${edu.degree}</span>
-                    </div>
-                    <div class="timeline__connector">
-                        <span class="timeline__meta">${edu.institution} | ${edu.dates}${edu.cgpa ? ` | CGPA: ${edu.cgpa}` : ''}${edu.marks ? ` | Marks: ${edu.marks}` : ''}</span>
-                    </div>
-                    ${i < data.education.length - 1 ? '<div class="timeline__spacer"></div>' : ''}
-                </div>
-            `).join('');
-    },
-    
-    renderFineArts() {
-        const data = window.portfolioData;
-        if (!data) return;
-        
-        const gridEl = document.getElementById('finearts-grid');
-        if (!gridEl) return;
-        
-        gridEl.innerHTML = Object.entries(data.finearts)
-            .map(([category, items]) => `
-                <div class="finearts__category">
-                    <h3>${category}</h3>
-                    <ul>
-                        ${items.map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-                </div>
-            `).join('');
-    },
-    
-    renderCertifications() {
-        const data = window.portfolioData;
-        if (!data) return;
-        
-        const gridEl = document.getElementById('certifications-grid');
-        if (!gridEl) return;
-        
-        gridEl.innerHTML = data.certifications
-            .map(cert => `
-                <div class="certifications__card">
-                    <h3>${cert.title}</h3>
-                    <p class="certifications__issuer">${cert.issuer}</p>
-                    <p class="certifications__dates">${cert.dates}</p>
-                </div>
-            `).join('');
-    },
-    
-    renderContact() {
-        const data = window.portfolioData;
-        if (!data) return;
-        
-        const contentEl = document.getElementById('contact-content');
-        if (!contentEl) return;
-        
-        contentEl.innerHTML = `
-            <div class="contact__item">
-                <span class="contact__label">Email</span>
-                <a href="mailto:${data.contact.email}" class="contact__value">${data.contact.email}</a>
-            </div>
-            <div class="contact__item">
-                <span class="contact__label">Phone</span>
-                <span class="contact__value">${data.contact.phone}</span>
-            </div>
-            <div class="contact__item">
-                <span class="contact__label">GitHub</span>
-                <a href="https://${data.contact.github}" target="_blank" rel="noopener" class="contact__value">${data.contact.github}</a>
-            </div>
-            <div class="contact__item">
-                <span class="contact__label">LinkedIn</span>
-                <a href="https://${data.contact.linkedin}" target="_blank" rel="noopener" class="contact__value">${data.contact.linkedin}</a>
-            </div>
-            <div class="contact__item">
-                <span class="contact__label">Address</span>
-                <span class="contact__value">${data.contact.address}</span>
-            </div>
-        `;
-    },
-    
-    bindNavigation() {
-        const hamburger = document.querySelector('.nav__hamburger');
-        const navLinks = document.querySelector('.nav__links');
-        
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-            });
-            
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                });
-            });
-        }
-    },
-    
-    setYear() {
-        const yearEl = document.getElementById('year');
-        if (yearEl) {
-            yearEl.textContent = new Date().getFullYear();
-        }
-    }
-};
+const d = window.portfolioData;
 
-document.addEventListener('DOMContentLoaded', () => {
-    App.init();
-});
+const $  = (sel) => document.querySelector(sel);
+const el = (tag, cls, html) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html !== undefined) n.innerHTML = html;
+    return n;
+};
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ---------------- hero ---------------- */
+function renderHero() {
+    const { info, contact } = d;
+    $('#hero-location').textContent = info.location || '';
+    $('#hero-name').textContent     = info.name;
+    $('#hero-title').textContent    = info.title;
+    $('#hero-subtitle').textContent = info.subtitle;
+    $('#hero-tagline').textContent  = info.tagline || '';
+
+    const photo = $('#hero-photo');
+    if (photo && info.photo) { photo.src = info.photo; photo.alt = info.name; }
+
+    const actions = [
+        { label: 'Résumé',       href: info.resume,       primary: true, download: true },
+        { label: 'Dissertation', href: info.dissertation, download: true },
+        { label: 'GitHub',       href: contact.github,    ext: true },
+        { label: 'LinkedIn',     href: contact.linkedin,  ext: true },
+        { label: 'Email',        href: `mailto:${contact.email}` }
+    ];
+
+    const wrap = $('#hero-actions');
+    actions.forEach((a) => {
+        if (!a.href) return;
+        const link = el('a', `btn${a.primary ? ' btn--primary' : ''}`, esc(a.label));
+        link.href = a.href;
+        if (a.ext)      { link.target = '_blank'; link.rel = 'noopener noreferrer'; }
+        if (a.download) { link.target = '_blank'; link.rel = 'noopener'; }
+        wrap.appendChild(link);
+    });
+}
+
+/* ---------------- about ---------------- */
+function renderAbout() {
+    $('#about-summary').textContent = d.info.summary;
+
+    const stats = $('#stats-grid');
+    (d.stats || []).forEach((s) => {
+        stats.appendChild(el('div', 'stat', `
+            <div class="stat__value">${esc(s.value)}</div>
+            <div class="stat__label">${esc(s.label)}</div>
+            ${s.note ? `<div class="stat__note">${esc(s.note)}</div>` : ''}
+        `));
+    });
+
+    const ul = $('#about-highlights');
+    (d.highlights || []).forEach((h) => ul.appendChild(el('li', null, esc(h))));
+}
+
+/* ---------------- skills ---------------- */
+function renderSkills() {
+    const grid = $('#skills-grid');
+    Object.entries(d.skills).forEach(([group, items]) => {
+        grid.appendChild(el('div', 'skill-group', `
+            <h3 class="skill-group__title">${esc(group)}</h3>
+            <div class="skill-group__list">
+                ${items.map((i) => `<span class="tag">${esc(i)}</span>`).join('')}
+            </div>
+        `));
+    });
+}
+
+/* ---------------- experience ---------------- */
+function renderExperience() {
+    const tl = $('#experience-timeline');
+    d.experience.forEach((job) => {
+        tl.appendChild(el('div', `tl-item${job.current ? ' tl-item--current' : ''}`, `
+            <div class="tl-head">
+                <h3 class="tl-role">${esc(job.role)}</h3>
+                ${job.current ? '<span class="tl-badge">Current</span>' : ''}
+            </div>
+            <p class="tl-org">${esc(job.company)}${job.location ? ` · ${esc(job.location)}` : ''}</p>
+            <p class="tl-dates">${esc(job.dates)}</p>
+            <ul class="tl-details">
+                ${job.details.map((x) => `<li>${esc(x)}</li>`).join('')}
+            </ul>
+        `));
+    });
+}
+
+/* ---------------- education ---------------- */
+function renderEducation() {
+    const tl = $('#education-timeline');
+    d.education.forEach((e) => {
+        const meta = e.cgpa ? `CGPA ${esc(e.cgpa)}` : (e.marks ? `Marks ${esc(e.marks)}` : '');
+        tl.appendChild(el('div', 'tl-item', `
+            <div class="tl-head"><h3 class="tl-role">${esc(e.degree)}</h3></div>
+            <p class="tl-org">${esc(e.institution)}</p>
+            <p class="tl-dates">${esc(e.dates)}</p>
+            ${meta ? `<p class="tl-meta">${meta}</p>` : ''}
+            ${e.board ? `<p class="tl-meta" style="color:var(--faint)">${esc(e.board)}</p>` : ''}
+        `));
+    });
+
+    const grid = $('#credentials-grid');
+    (d.certifications || []).forEach((c) => {
+        grid.appendChild(el('div', 'card', `
+            <h4 class="card__title">${esc(c.title)}</h4>
+            <p class="card__meta">${esc(c.issuer)}</p>
+            <p class="card__dates">${esc(c.dates)}</p>
+        `));
+    });
+    (d.internships || []).forEach((i) => {
+        grid.appendChild(el('div', 'card', `
+            <h4 class="card__title">${esc(i.title)}</h4>
+            <p class="card__meta">${esc(i.company)}</p>
+            <p class="card__dates">${esc(i.dates)}</p>
+        `));
+    });
+}
+
+/* ---------------- projects ---------------- */
+function projectCard(p) {
+    const card = el('article', `project${p.featured ? ' project--featured' : ''}`);
+    card.dataset.category = p.category || '';
+
+    const hasDetail = Array.isArray(p.detail) && p.detail.length;
+    const detailId  = `detail-${p.id}`;
+
+    const main = el('div', 'project__main', `
+        <div class="project__top">
+            ${p.category ? `<span class="project__cat">${esc(p.category)}</span>` : ''}
+            ${p.featured ? '<span class="project__star">★ featured</span>' : ''}
+        </div>
+        <h3 class="project__title">${esc(p.title)}</h3>
+        ${p.subtitle ? `<p class="project__sub">${esc(p.subtitle)}${p.org ? ` · ${esc(p.org)}` : ''}</p>` : ''}
+        <p class="project__dates">${esc(p.dates)}</p>
+        <p class="project__desc">${esc(p.description)}</p>
+        ${p.highlights ? `<ul class="project__highlights">${p.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}
+        <div class="project__tech">${(p.tech || []).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+    `);
+
+    const actions = el('div', 'project__actions');
+
+    if (hasDetail) {
+        const btn = el('button', 'project__toggle',
+            `<span class="project__toggle-icon">▸</span> Technical detail`);
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-controls', detailId);
+        actions.appendChild(btn);
+
+        const detail = el('div', 'project__detail',
+            p.detail.map((b) => `
+                <div class="detail-block">
+                    <h4 class="detail-block__head">${esc(b.heading)}</h4>
+                    <p class="detail-block__body">${esc(b.body)}</p>
+                </div>
+            `).join(''));
+        detail.id = detailId;
+
+        btn.addEventListener('click', () => {
+            const open = detail.classList.toggle('is-open');
+            btn.setAttribute('aria-expanded', String(open));
+        });
+
+        main.appendChild(actions);
+        card.appendChild(main);
+        card.appendChild(detail);
+    } else {
+        main.appendChild(actions);
+        card.appendChild(main);
+    }
+
+    (p.links || []).forEach((l) => {
+        const a = el('a', 'project__toggle', esc(l.label));
+        a.href = l.href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        actions.appendChild(a);
+    });
+
+    return card;
+}
+
+function renderProjects() {
+    const grid    = $('#projects-grid');
+    const filters = $('#projects-filters');
+
+    // Fixed category list from the data file — NOT one chip per tech tag.
+    const used = new Set(d.projects.map((p) => p.category).filter(Boolean));
+    const cats = (d.categories || ['All']).filter((c) => c === 'All' || used.has(c));
+
+    const draw = (cat) => {
+        grid.innerHTML = '';
+        d.projects
+            .filter((p) => cat === 'All' || p.category === cat)
+            .forEach((p) => grid.appendChild(projectCard(p)));
+        observeReveals(grid);
+    };
+
+    cats.forEach((cat, i) => {
+        const b = el('button', `filter${i === 0 ? ' is-active' : ''}`, esc(cat));
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-selected', String(i === 0));
+        b.addEventListener('click', () => {
+            filters.querySelectorAll('.filter').forEach((x) => {
+                x.classList.remove('is-active');
+                x.setAttribute('aria-selected', 'false');
+            });
+            b.classList.add('is-active');
+            b.setAttribute('aria-selected', 'true');
+            draw(cat);
+        });
+        filters.appendChild(b);
+    });
+
+    draw('All');
+}
+
+/* ---------------- fine arts ---------------- */
+function renderFineArts() {
+    const grid = $('#finearts-grid');
+    Object.entries(d.finearts).forEach(([k, items]) => {
+        grid.appendChild(el('div', 'card', `
+            <h4 class="card__title">${esc(k)}</h4>
+            <div class="card__list">${items.map((i) => `<span class="tag">${esc(i)}</span>`).join('')}</div>
+        `));
+    });
+}
+
+/* ---------------- contact ---------------- */
+function renderContact() {
+    const c = d.contact;
+    const rows = [
+        ['Email',    `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`],
+        ['Phone',    `<a href="tel:${esc(c.phone.replace(/\s/g, ''))}">${esc(c.phone)}</a>`],
+        ['GitHub',   `<a href="${esc(c.github)}" target="_blank" rel="noopener noreferrer">${esc(c.githubLabel)}</a>`],
+        ['LinkedIn', `<a href="${esc(c.linkedin)}" target="_blank" rel="noopener noreferrer">${esc(c.linkedinLabel)}</a>`],
+        ['Location', esc(c.address)]
+    ];
+
+    $('#contact-content').innerHTML = `
+        <p class="contact__lead">Open to conversations about AI/ML and agentic engineering work. The fastest way to reach me is email.</p>
+        <ul class="contact__list">
+            ${rows.map(([k, v]) => `
+                <li class="contact__row">
+                    <span class="contact__key">${k}</span>
+                    <span class="contact__val">${v}</span>
+                </li>`).join('')}
+        </ul>`;
+}
+
+/* ---------------- nav ---------------- */
+function initNav() {
+    const nav      = $('#nav');
+    const menu     = $('#nav-menu');
+    const toggle   = $('#nav-toggle');
+    const backdrop = $('#nav-backdrop');
+
+    const setMenu = (open) => {
+        menu.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        backdrop.hidden = !open;
+        document.body.classList.toggle('is-locked', open);
+    };
+
+    toggle.addEventListener('click', () => setMenu(!menu.classList.contains('is-open')));
+    backdrop.addEventListener('click', () => setMenu(false));
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+    // close the drawer if we cross into desktop layout
+    const mq = window.matchMedia('(min-width: 900px)');
+    mq.addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+
+    addEventListener('scroll', () => {
+        nav.classList.toggle('is-scrolled', window.scrollY > 8);
+    }, { passive: true });
+
+    // active-section highlighting
+    const links = [...menu.querySelectorAll('a')];
+    const spy = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = `#${entry.target.id}`;
+            links.forEach((l) => l.classList.toggle('is-active', l.getAttribute('href') === id));
+        });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+
+    links.forEach((l) => {
+        const sec = document.querySelector(l.getAttribute('href'));
+        if (sec) spy.observe(sec);
+    });
+}
+
+/* ---------------- reveal ---------------- */
+let revealObserver;
+function observeReveals(root = document) {
+    if (!revealObserver) {
+        revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((e) => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-visible');
+                    revealObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }
+    root.querySelectorAll('.project, .stat, .skill-group, .tl-item, .card')
+        .forEach((n) => {
+            if (n.classList.contains('is-visible')) return;
+            n.classList.add('reveal');
+            revealObserver.observe(n);
+        });
+}
+
+/* ---------------- boot ---------------- */
+function init() {
+    if (!d) return;
+    renderHero();
+    renderAbout();
+    renderSkills();
+    renderExperience();
+    renderProjects();
+    renderEducation();
+    renderFineArts();
+    renderContact();
+    initNav();
+    observeReveals();
+    $('#year').textContent = new Date().getFullYear();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
