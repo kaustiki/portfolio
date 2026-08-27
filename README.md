@@ -3,7 +3,7 @@
 Terminal-style personal portfolio. Vanilla HTML, CSS and JavaScript — no build step,
 no dependencies, no framework.
 
-**Live:** https://kaustiki.github.io/portfolio_opencode/
+**Live:** https://kaustiki.github.io/portfolio
 
 ---
 
