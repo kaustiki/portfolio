@@ -125,55 +125,63 @@ function projectCard(p) {
     const card = el('article', `project${p.featured ? ' project--featured' : ''}`);
     card.dataset.category = p.category || '';
 
-    const hasDetail = Array.isArray(p.detail) && p.detail.length;
-    const detailId  = `detail-${p.id}`;
+    // Compact by default: the card shows identity + one-line pitch + stack.
+    // Everything long (highlights, technical detail) lives behind the toggle.
+    const hasMore = (p.highlights && p.highlights.length) || (p.detail && p.detail.length);
+    const moreId  = `more-${p.id}`;
+    const MAX_TAGS = 5;
+    const tags = p.tech || [];
+    const shown = tags.slice(0, MAX_TAGS);
+    const rest  = tags.length - shown.length;
 
     const main = el('div', 'project__main', `
         <div class="project__top">
             ${p.category ? `<span class="project__cat">${esc(p.category)}</span>` : ''}
-            ${p.featured ? '<span class="project__star">★ featured</span>' : ''}
+            ${p.featured ? '<span class="project__star">★</span>' : ''}
         </div>
         <h3 class="project__title">${esc(p.title)}</h3>
-        ${p.subtitle ? `<p class="project__sub">${esc(p.subtitle)}${p.org ? ` · ${esc(p.org)}` : ''}</p>` : ''}
-        <p class="project__dates">${esc(p.dates)}</p>
+        <p class="project__meta">${esc([p.subtitle, p.dates].filter(Boolean).join(' · '))}</p>
         <p class="project__desc">${esc(p.description)}</p>
-        ${p.highlights ? `<ul class="project__highlights">${p.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}
-        <div class="project__tech">${(p.tech || []).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+        <div class="project__tech">
+            ${shown.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}
+            ${rest > 0 ? `<span class="tag tag--more">+${rest}</span>` : ''}
+        </div>
     `);
 
     const actions = el('div', 'project__actions');
+    main.appendChild(actions);
+    card.appendChild(main);
 
-    if (hasDetail) {
+    if (hasMore) {
         const btn = el('button', 'project__toggle',
-            `<span class="project__toggle-icon">▸</span> Technical detail`);
+            `<span class="project__toggle-icon">▸</span> Details`);
         btn.setAttribute('aria-expanded', 'false');
-        btn.setAttribute('aria-controls', detailId);
+        btn.setAttribute('aria-controls', moreId);
         actions.appendChild(btn);
 
-        const detail = el('div', 'project__detail',
-            p.detail.map((b) => `
+        const more = el('div', 'project__detail', `
+            ${p.org ? `<p class="detail-org">${esc(p.org)}</p>` : ''}
+            ${p.highlights ? `<ul class="project__highlights">${p.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}
+            ${(p.detail || []).map((b) => `
                 <div class="detail-block">
                     <h4 class="detail-block__head">${esc(b.heading)}</h4>
                     <p class="detail-block__body">${esc(b.body)}</p>
-                </div>
-            `).join(''));
-        detail.id = detailId;
+                </div>`).join('')}
+            ${rest > 0 ? `<div class="project__tech project__tech--all">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
+        `);
+        more.id = moreId;
 
         btn.addEventListener('click', () => {
-            const open = detail.classList.toggle('is-open');
+            const open = more.classList.toggle('is-open');
             btn.setAttribute('aria-expanded', String(open));
+            btn.innerHTML = `<span class="project__toggle-icon">▸</span> ${open ? 'Less' : 'Details'}`;
         });
 
-        main.appendChild(actions);
-        card.appendChild(main);
-        card.appendChild(detail);
-    } else {
-        main.appendChild(actions);
-        card.appendChild(main);
+        card.appendChild(more);
     }
 
     (p.links || []).forEach((l) => {
-        const a = el('a', 'project__toggle', esc(l.label));
+        const a = el('a', 'project__toggle project__toggle--link', esc(l.label));
         a.href = l.href;
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
@@ -236,8 +244,7 @@ function renderContact() {
         ['Email',    `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`],
         ['Phone',    `<a href="tel:${esc(c.phone.replace(/\s/g, ''))}">${esc(c.phone)}</a>`],
         ['GitHub',   `<a href="${esc(c.github)}" target="_blank" rel="noopener noreferrer">${esc(c.githubLabel)}</a>`],
-        ['LinkedIn', `<a href="${esc(c.linkedin)}" target="_blank" rel="noopener noreferrer">${esc(c.linkedinLabel)}</a>`],
-        ['Location', esc(c.address)]
+        ['LinkedIn', `<a href="${esc(c.linkedin)}" target="_blank" rel="noopener noreferrer">${esc(c.linkedinLabel)}</a>`]
     ];
 
     $('#contact-content').innerHTML = `

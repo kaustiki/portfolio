@@ -330,7 +330,6 @@ const Terminal = {
         this.printHtml(`  <span class="term-key">phone   </span> ${this.esc(c.phone)}`);
         this.printHtml(`  <span class="term-key">github  </span> <a class="term-link" href="${this.esc(c.github)}" target="_blank" rel="noopener noreferrer">${this.esc(c.githubLabel)}</a>`);
         this.printHtml(`  <span class="term-key">linkedin</span> <a class="term-link" href="${this.esc(c.linkedin)}" target="_blank" rel="noopener noreferrer">${this.esc(c.linkedinLabel)}</a>`);
-        this.printHtml(`  <span class="term-key">location</span> ${this.esc(c.address)}`);
     },
 
     cmdResume() {

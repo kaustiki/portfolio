@@ -3,7 +3,7 @@ export const portfolioData = {
         name: "Akurati Kaustiki",
         title: "Forward Deployed Engineer",
         subtitle: "AI/ML · Agentic Systems · M.Tech (AI & ML)",
-        location: "Chennai, India",
+        location: "India · open to relocation",
         photo: "assets/kaustiki.jpg",
         resume: "assets/akurati-kaustiki-resume.pdf",
         dissertation: "assets/akurati-kaustiki-mtech-dissertation.pdf",
@@ -14,11 +14,10 @@ export const portfolioData = {
     contact: {
         email: "akuratikaustiki@gmail.com",
         phone: "+91 75501 69233",
-        address: "Sholinganallur, Chennai – 600119, Tamil Nadu, India",
-        github: "https://github.com/akuratikaustiki",
-        githubLabel: "github.com/akuratikaustiki",
-        linkedin: "https://linkedin.com/in/akuratikaustiki",
-        linkedinLabel: "linkedin.com/in/akuratikaustiki"
+        github: "https://github.com/kaustiki",
+        githubLabel: "github.com/kaustiki",
+        linkedin: "https://www.linkedin.com/in/akurati-kaustiki",
+        linkedinLabel: "linkedin.com/in/akurati-kaustiki"
     },
 
     stats: [
@@ -249,21 +248,6 @@ export const portfolioData = {
                 }
             ],
             tech: ["Python", "PyMuPDF", "ChromaDB", "OpenAI embeddings", "LangChain", "FastAPI", "React Router 7", "Braintrust", "autoevals"]
-        },
-        {
-            id: "milktracker",
-            title: "MilkTracker",
-            subtitle: "Full-stack subscription & delivery tracking",
-            org: "TinyMagiq · FDE programme",
-            dates: "March – April 2026",
-            category: "Backend",
-            description: "Connects milk vendors with their customers. Vendors manage subscriptions and set price per litre; customers subscribe and log deliveries. Both sides get filtered billing summaries with total litres and total price.",
-            highlights: [
-                "Many-to-many vendor–customer subscription model with cascading deletes.",
-                "Role-scoped access — customers own their delivery logs, vendors get a read-only view of subscribers.",
-                "Tested at both levels: pytest on the API, Playwright end-to-end on the UI."
-            ],
-            tech: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Alembic", "React Router 7", "Tailwind", "pytest", "Playwright", "Vitest", "Ruff"]
         },
         {
             id: "image-captioning",

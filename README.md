@@ -14,11 +14,17 @@ The scripts load as ES modules, so **a local server is required** — opening
 over `file://`).
 
 ```bash
-python3 -m http.server 8000
+python3 serve.py
 ```
 
-Then open <http://localhost:8000>. Any static server works (`npx serve`,
-`php -S localhost:8000`, VS Code Live Server).
+Then open <http://localhost:8000>. Stop it with `Ctrl+C`.
+
+Use `serve.py` rather than `python3 -m http.server` — the plain module lets the
+browser cache ES modules and CSS aggressively, so your edits appear not to take
+effect. `serve.py` sends `no-store` on everything. Pass a port to change it:
+`python3 serve.py 3000`.
+
+If you ever do see a stale page, hard-refresh: **Ctrl+Shift+R** (Cmd+Shift+R on Mac).
 
 ---
 
