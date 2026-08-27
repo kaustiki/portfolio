@@ -8,7 +8,8 @@ export const portfolioData = {
         resume: "assets/akurati-kaustiki-resume.pdf",
         dissertation: "assets/akurati-kaustiki-mtech-dissertation.pdf",
         summary: "A Computer Science engineer working across AI and backend systems. I build LLM and agentic applications end to end — retrieval pipelines, evaluation harnesses, and the production services around them — and I learn by shipping real things for real users.",
-        tagline: "I build AI systems that hold up in production."
+        // your own line — set `quote: { text, author }` instead to show an attributed quotation
+        tagline: "Curiosity drives learning. Real problems give it direction."
     },
 
     contact: {

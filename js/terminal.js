@@ -241,7 +241,12 @@ const Terminal = {
         this.kv('location', info.location);
         this.kv('email',    contact.email);
         this.print('');
-        this.print(info.tagline, 'term-muted');
+        if (info.quote) {
+            this.printHtml(`  <span class="term-muted">“${this.esc(info.quote.text)}”</span>`);
+            this.printHtml(`  <span class="term-muted" style="opacity:.7">— ${this.esc(info.quote.author)}</span>`);
+        } else if (info.tagline) {
+            this.print(info.tagline, 'term-muted');
+        }
     },
 
     cmdAbout() {

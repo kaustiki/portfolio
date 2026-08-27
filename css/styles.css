@@ -218,6 +218,8 @@ a { color: inherit; }
     min-width: 0;
 }
 .hero__intro > * { min-width: 0; max-width: 100%; }
+.hero__intro { justify-items: center; }
+@media (max-width: 599px) { .hero__quote { margin-left: auto; margin-right: auto; } }
 .hero__info { min-width: 0; max-width: 100%; }
 
 .hero__photo-wrap {
@@ -247,9 +249,30 @@ a { color: inherit; }
     font-weight: 600; color: var(--text);
 }
 .hero__subtitle { margin: var(--sp-1) 0 0; font-size: .85rem; color: var(--muted); }
-.hero__tagline {
-    margin: var(--sp-4) 0 0; font-size: .9rem; color: var(--muted);
-    max-width: min(46ch, 100%); line-height: 1.6;
+.hero__quote {
+    margin: var(--sp-5) 0 0;
+    padding-left: var(--sp-4);
+    border-left: 2px solid var(--border-strong);
+    max-width: min(42ch, 100%);
+    text-align: left;
+}
+.hero__quote blockquote {
+    margin: 0;
+    font-size: .95rem; font-style: italic; line-height: 1.55;
+    color: var(--text);
+    text-wrap: balance;
+}
+.hero__quote--own blockquote {
+    font-style: normal;
+    font-size: 1rem;
+    color: var(--text);
+    text-wrap: balance;
+}
+
+.hero__quote figcaption {
+    margin-top: var(--sp-2);
+    font-size: .74rem; color: var(--faint);
+    letter-spacing: .04em;
 }
 
 .hero__actions {
@@ -614,7 +637,7 @@ a { color: inherit; }
         grid-template-columns: auto minmax(0, 1fr);
         align-items: center; text-align: left; justify-items: start;
     }
-    .hero__tagline { margin-left: 0; }
+
     .hero__actions { justify-content: flex-start; }
 
     .section__title { font-size: 1.5rem; }

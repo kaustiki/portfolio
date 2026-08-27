@@ -17,7 +17,17 @@ function renderHero() {
     $('#hero-name').textContent     = info.name;
     $('#hero-title').textContent    = info.title;
     $('#hero-subtitle').textContent = info.subtitle;
-    $('#hero-tagline').textContent  = info.tagline || '';
+    const fig = $('#hero-quote');
+    if (info.quote) {
+        $('#hero-quote-text').textContent   = `“${info.quote.text}”`;
+        $('#hero-quote-author').textContent = `— ${info.quote.author}`;
+        fig.hidden = false;
+    } else if (info.tagline) {
+        $('#hero-quote-text').textContent = info.tagline;
+        $('#hero-quote-author').remove();
+        fig.classList.add('hero__quote--own');
+        fig.hidden = false;
+    }
 
     const photo = $('#hero-photo');
     if (photo && info.photo) { photo.src = info.photo; photo.alt = info.name; }
