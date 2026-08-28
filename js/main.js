@@ -10,7 +10,7 @@ const el = (tag, cls, html) => {
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-/* ---------------- hero ---------------- */
+/* ---------------- hero --------------- */
 function renderHero() {
     const { info, contact } = d;
     $('#hero-location').textContent = info.location || '';
