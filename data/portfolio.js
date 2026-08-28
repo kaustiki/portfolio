@@ -7,7 +7,7 @@ export const portfolioData = {
         photo: "assets/kaustiki.jpg",
         resume: "assets/akurati-kaustiki-resume.pdf",
         dissertation: "assets/akurati-kaustiki-mtech-dissertation.pdf",
-        summary: "A Computer Science engineer working across AI and backend systems. I build LLM and agentic applications end to end — retrieval pipelines, evaluation harnesses, and the production services around them — and I learn by shipping real things for real users.",
+        summary: "A Computer Science engineer building at the intersection of AI/ML and backend systems. I develop end-to-end LLM and agentic applications — from retrieval pipelines and evaluation harnesses to the production services that support them. I learn by building practical solutions and shipping real products for real users.",
         // your own line — set `quote: { text, author }` instead to show an attributed quotation
         tagline: "Curiosity drives learning. Real problems give it direction."
     },
@@ -22,16 +22,15 @@ export const portfolioData = {
     },
 
     stats: [
-        { value: "97.7%", label: "RLVS benchmark accuracy", note: "M.Tech dissertation, vs 91.03% prior SOTA" },
-        { value: "9.51", label: "M.Tech CGPA", note: "BITS Pilani, AI & ML" },
-        { value: "4", label: "Production systems shipped", note: "2026" }
+        { value: "97.7%", label: "RLVS benchmark accuracy", note: "M.Tech dissertation · previous SOTA: 91.03%" },
+        { value: "9.51", label: "M.Tech CGPA", note: "BITS Pilani · AI & ML" }
     ],
 
     highlights: [
         "Problem-solving",
         "Communication",
         "Time management",
-        "Hard work and dedication"
+        "Ownership & execution"
     ],
 
     skills: {

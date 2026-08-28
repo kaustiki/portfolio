@@ -393,7 +393,7 @@ a { color: inherit; }
 
 .stats {
     display: grid; gap: var(--sp-3);
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
     margin: var(--sp-6) 0;
 }
 .stat {
@@ -629,7 +629,6 @@ a { color: inherit; }
     body { font-size: 15px; }
     :root { --gutter: max(1.5rem, var(--safe-l)); }
 
-    .stats  { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cards  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
