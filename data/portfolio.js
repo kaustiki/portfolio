@@ -51,8 +51,7 @@ export const portfolioData = {
             details: [
                 "Agentic AI full-stack development — skill/command-based agents, tool integration, and agent workflows.",
                 "Built and evaluated LLM/RAG agent workflows using LangGraph and Langfuse, integrating tools and retrieval pipelines into production-oriented AI applications.",
-                "Contributed to Tiny Magiq's GenAI website (tinymagiq.com), working on an LLM-powered query engine and AI-driven web experience.",
-                "Delivered a payment verification system for a transport-sector client, covering approval workflow, tamper detection and audit trail."
+                "Contributed to Tiny Magiq's GenAI website (tinymagiq.com), working on an LLM-powered query engine and AI-driven web experience."
             ]
         },
         {
@@ -192,7 +191,6 @@ export const portfolioData = {
             id: "payment-verification",
             title: "Payment Verification System",
             subtitle: "Production · transport sector client",
-            org: "TinyMagiq",
             dates: "August 2026",
             category: "Backend",
             featured: true,

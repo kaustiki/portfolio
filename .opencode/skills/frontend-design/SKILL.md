@@ -40,7 +40,7 @@ NEVER use:
 - Overly polished "corporate" feel
 - Bold, colorful, or maximalist aesthetics
 
-## Implementation Quality
+## Implementation Qualit
 
 Code must be:
 - Production-grade and functional
