@@ -349,6 +349,44 @@ a { color: inherit; }
 .term-sep    { color: var(--term-muted); opacity: .45; }
 .term-block  { margin: var(--sp-1) 0 var(--sp-3); }
 
+/* Structured output. Alignment is done with flex, not by padding strings —
+   a space-padded table falls apart at phone widths, whereas a flex row lets a
+   long value wrap inside its own column and stay lined up with the rest.
+   These must follow .term-line, whose pre-wrap they deliberately override. */
+.term-row {
+    display: flex; gap: var(--sp-3);
+    padding-left: .6rem;
+    white-space: normal;
+}
+.term-row__k { flex: 0 0 5.5rem; }
+.term-row__v { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+
+.term-row--stat .term-row__k { flex: 0 0 4rem; color: #fff; font-weight: 600; }
+.term-row--help .term-row__k { flex-basis: 9.5rem; }
+
+/* hanging indent — the ▸ sits in the gutter and wrapped lines align under
+   the title, so an entry always reads as one block */
+.term-entry {
+    margin-bottom: var(--sp-2);
+    padding-left: 1.7rem;
+    white-space: normal;
+}
+.term-entry__t { text-indent: -1.1rem; }
+.term-entry__s { overflow-wrap: anywhere; }
+
+.term-group { margin-bottom: var(--sp-2); padding-left: .6rem; white-space: normal; }
+.term-group__v { padding-left: 1.1rem; overflow-wrap: anywhere; }
+
+.term-indent { padding-left: .6rem; white-space: normal; overflow-wrap: anywhere; }
+
+/* narrow screens: the help table has no room for two columns, so the
+   description drops under its command instead of being squeezed */
+@media (max-width: 560px) {
+    .term-row--help { display: block; }
+    .term-row--help .term-row__v { padding-left: 1.1rem; }
+    .term-entry { padding-left: 1.3rem; }
+}
+
 /* the input line — real caret, no fake block cursor */
 .terminal__input-line {
     display: flex; align-items: baseline; gap: var(--sp-2);
