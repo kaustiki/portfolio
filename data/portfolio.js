@@ -7,7 +7,7 @@ export const portfolioData = {
         photo: "assets/kaustiki.jpg",
         resume: "assets/akurati-kaustiki-resume.pdf",
         dissertation: "assets/akurati-kaustiki-mtech-dissertation.pdf",
-        summary: "A Computer Science engineer building at the intersection of AI/ML and backend systems. I develop end-to-end LLM and agentic applications — from retrieval pipelines and evaluation harnesses to the production services that support them. I learn by building practical solutions and shipping real products for real users.",
+        summary: "Computer Science engineer building at the intersection of AI, machine learning, and backend engineering. I develop end-to-end LLM and agentic systems — from retrieval and evaluation pipelines to scalable backend services and production-ready applications. I learn by building, experimenting, and turning emerging AI capabilities into practical solutions for real-world problems.",
         // your own line — set `quote: { text, author }` instead to show an attributed quotation
         tagline: "Curiosity drives learning. Real problems give it direction."
     },

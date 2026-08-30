@@ -73,7 +73,7 @@ edit that one file to change text, add a project, or reorder anything.
 
 Also: `ls`, `pwd`, `date`, `echo`, `history`, `sudo`.
 **Tab** completes, **↑ / ↓** recall history, **Ctrl+L** clears.
-Old-style commands (`df.info`, `projects.head()`, `theme.toggle()`) still work as aliases.
+Old-style commands (`ak.info`, `projects.head()`, `theme.toggle()`) still work as aliases.
 
 ---
 

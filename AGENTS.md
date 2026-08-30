@@ -51,7 +51,7 @@ All implementations must follow `plans/design.md`:
 | Command | Output |
 |---------|--------|
 | `help()` | List all available commands |
-| `df.info` | Name, title, short description |
+| `ak.info` | Name, title, short description |
 | `education.head()` | Education entries |
 | `experience.head()` | Work experience |
 | `skills.head()` | Technical skills |

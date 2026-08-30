@@ -1,8 +1,8 @@
 /* Terminal — a small pandas-flavoured shell over the portfolio data.
 
-   One object, `df`, and a flat set of commands on it: df.info(), df.projects,
-   df.experience. `df.` is optional, and trailing () are forgiven, so info(),
-   df.info and df.info() all work.
+   One object, `ak`, and a flat set of commands on it: ak.info(), ak.projects,
+   ak.experience. `ak.` is optional, and trailing () are forgiven, so info(),
+   ak.info and ak.info() all work.
 
    Output alignment lives in CSS (.term-row / .term-entry / .term-group) rather
    than in padded strings — a space-padded table breaks apart on a phone, a
@@ -50,7 +50,7 @@ const Terminal = {
         this.commands = {};
         this.spec.forEach(([label, , fn]) => { this.commands[label.replace('()', '')] = fn; });
 
-        // available without the df. prefix
+        // available without the ak. prefix
         this.commands.help    = () => this.cmdHelp();
         this.commands.clear   = () => this.cmdClear();
         this.commands.history = () => this.cmdHistory();
@@ -67,8 +67,8 @@ const Terminal = {
 
     renderChips() {
         if (!this.chipsEl) return;
-        ['help()', 'df.info()', 'df.projects', 'df.experience', 'df.skills',
-         'df.education', 'df.contact', 'df.resume()', 'df.theme()', 'clear()']
+        ['help()', 'ak.info()', 'ak.projects', 'ak.experience', 'ak.skills',
+         'ak.education', 'ak.contact', 'ak.resume()', 'ak.theme()', 'clear()']
             .forEach((cmd) => {
                 const b = document.createElement('button');
                 b.className = 'term-chip';
@@ -121,9 +121,9 @@ const Terminal = {
         const val = this.inputEl.value.trim().toLowerCase();
         if (!val) return;
 
-        const pool = this.spec.map(([label]) => `df.${label}`).concat(['help()', 'clear()']);
+        const pool = this.spec.map(([label]) => `ak.${label}`).concat(['help()', 'clear()']);
         const hits = pool.filter((n) => n.toLowerCase().startsWith(val) ||
-                                        n.replace('df.', '').toLowerCase().startsWith(val));
+                                        n.replace('ak.', '').toLowerCase().startsWith(val));
         if (hits.length === 1) {
             this.inputEl.value = hits[0];
             this.moveCaretToEnd();
@@ -151,14 +151,14 @@ const Terminal = {
     },
 
     execute(raw) {
-        // df. is optional and trailing () are forgiven
+        // ak. is optional and trailing () are forgiven
         const name = raw.trim()
-            .replace(/^df\s*\.\s*/i, '')
+            .replace(/^ak\s*\.\s*/i, '')
             .replace(/\(\s*\)$/, '')
             .trim();
 
         if (!name) return;
-        if (/^df$/i.test(name)) {
+        if (/^ak$/i.test(name)) {
             return this.line(`<portfolio.Profile: ${this.data.info.name}>`, 'term-cmd');
         }
 
@@ -254,7 +254,7 @@ const Terminal = {
         const { info } = this.data;
         this.line('Python 3.12 · pandas 2.2', 'term-muted');
         this.blank();
-        this.echo('import portfolio as df');
+        this.echo('import portfolio as ak');
         this.blank();
         this.html(`<span class="term-head">${this.esc(info.name)}</span>`);
         this.html(`<span class="term-muted">${this.esc(info.title)} · ${this.esc(info.subtitle)}</span>`);
@@ -266,12 +266,12 @@ const Terminal = {
     cmdHelp() {
         this.heading('Commands');
         this.spec.forEach(([label, desc]) => {
-            this.row(`df.${label}`, `<span class="term-muted">${this.esc(desc)}</span>`, ' term-row--help');
+            this.row(`ak.${label}`, `<span class="term-muted">${this.esc(desc)}</span>`, ' term-row--help');
         });
         this.row('help()', '<span class="term-muted">this list</span>', ' term-row--help');
         this.row('clear()', '<span class="term-muted">clear the screen</span>', ' term-row--help');
         this.blank();
-        this.line('df. is optional · Tab completes · ↑ ↓ history · Ctrl+L clears', 'term-muted');
+        this.line('ak. is optional · Tab completes · ↑ ↓ history · Ctrl+L clears', 'term-muted');
     },
 
     cmdInfo() {
