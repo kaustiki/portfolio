@@ -209,12 +209,12 @@ export const portfolioData = {
         {
             id: "weed-rag",
             title: "Weed Management RAG Chatbot",
-            subtitle: "Retrieval-augmented Q&A for farmers",
-            org: "TinyMagiq · FDE programme",
+            subtitle: "Training project · FDE programme",
+            org: "TinyMagiq",
             dates: "May – June 2026",
             category: "LLM & Agents",
             featured: true,
-            description: "Farmers misidentify noxious weeds because invasive species share traits — purple flower heads, rosettes, spines. This answers questions like “which thistle is this?” and “what is the treatment window for diffuse knapweed at rosette stage?” straight from a county weed-management guide.",
+            description: "A training build from the FDE programme — an experiment, not client work. Invasive weeds share traits (purple flower heads, rosettes, spines), so the bot answers questions like “which thistle is this?” or “what is the treatment window for diffuse knapweed at rosette stage?” from a county weed-management guide, with a citation for every answer.",
             highlights: [
                 "Structure-aware chunking beat naive splitting: the source is a 4-column brochure where each column is one coherent topic.",
                 "Chunks carry source, page, column and topic metadata, so every answer can cite where it came from.",
