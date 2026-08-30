@@ -163,28 +163,14 @@ export const portfolioData = {
             dates: "June 2026 – Present",
             category: "LLM & Agents",
             featured: true,
-            description: "Not a chatbot and not a brochure. A visitor states an enterprise-AI problem in their own words; the engine interprets it, routes it through a domain ontology, locks one piece of supporting evidence, and writes a short plain-language response that moves them toward a real conversation.",
+            description: "Not a chatbot and not a brochure. A visitor describes an enterprise-AI problem in their own words and gets back a short, specific, plain-language response — grounded in real supporting material — that moves them toward a real conversation instead of a contact form.",
             highlights: [
-                "Seven-layer architecture where each layer has exactly one job and no layer re-decides another's work.",
-                "LLM where judgment is needed, deterministic rules where auditability is needed.",
-                "A ~90 KB ontology owns all routing — no category-to-construct table is ever hard-coded.",
-                "Same input produces the same route, every time."
+                "Live in production on tinymagiq.com, handling real visitor traffic.",
+                "Answers are grounded in vetted source material rather than generated freely.",
+                "Safety and content checks run before anything reaches the visitor.",
+                "Instrumented end to end so every conversation can be reviewed and improved."
             ],
-            detail: [
-                {
-                    heading: "The pipeline",
-                    body: "input → safety gate → Interpreter (LLM, understands the pain) → Planner (pure rules, decides the route) → Proof selector (pure rules, locks evidence) → Composer (LLM, writes five blocks) → response plus reply options."
-                },
-                {
-                    heading: "Why the split matters",
-                    body: "The Interpreter never routes, the Planner never writes prose, and the Composer never re-decides the route. The Express server holds no business logic at all. That separation is what makes the system testable — the two rule-based stages are deterministic and can be asserted against directly, so LLM non-determinism is confined to the two stages where it earns its place."
-                },
-                {
-                    heading: "Ontology-driven routing",
-                    body: "Routing maps live in the ontology as data, read at runtime. Routing is keyed on the problem the visitor describes, never on their job title — persona affects tone only."
-                }
-            ],
-            tech: ["Node.js", "Express", "OpenAI SDK", "Anthropic SDK", "Ontology / knowledge graph", "PM2", "JSONL telemetry"],
+            tech: ["Node.js", "Express", "OpenAI SDK", "Anthropic SDK", "PM2", "JSONL telemetry"],
             links: [{ label: "tinymagiq.com", href: "https://tinymagiq.com" }]
         },
         {
