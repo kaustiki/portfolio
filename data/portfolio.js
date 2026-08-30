@@ -166,9 +166,9 @@ export const portfolioData = {
             dates: "June 2026 – Present",
             category: "LLM & Agents",
             featured: true,
-            description: "Not a chatbot and not a brochure. A visitor describes an enterprise-AI problem in their own words and gets back a short, specific, plain-language response — grounded in real supporting material — that moves them toward a real conversation instead of a contact form.",
+            description: "Contributed to the TinyMagiq website. Not a chatbot and not a brochure — a visitor describes an enterprise-AI problem in their own words and gets back a short, specific, plain-language response, grounded in real supporting material, that moves them toward a real conversation instead of a contact form.",
             highlights: [
-                "Live in production on tinymagiq.com, handling real visitor traffic.",
+                "Live on tinymagiq.com, handling real visitor traffic.",
                 "Answers are grounded in vetted source material rather than generated freely.",
                 "Safety and content checks run before anything reaches the visitor.",
                 "Instrumented end to end so every conversation can be reviewed and improved."
