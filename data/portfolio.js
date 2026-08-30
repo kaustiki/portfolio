@@ -112,7 +112,7 @@ export const portfolioData = {
     ],
 
     // category drives the project filter. Keep this list SHORT.
-    categories: ["All", "LLM & Agents", "AI / ML", "Backend"],
+    categories: ["All", "LLM & Agents", "AI / ML", "Backend", "Web"],
 
     projects: [
         {
@@ -153,7 +153,10 @@ export const portfolioData = {
                 }
             ],
             tech: ["PyTorch", "MobileNetV3", "BiLSTM", "Attention", "YOLOv11", "YOLOv8", "Faster R-CNN", "Grounding DINO", "X3D", "OpenCV", "Streamlit"],
-            links: [{ label: "Read the dissertation (PDF)", href: "assets/akurati-kaustiki-mtech-dissertation.pdf" }]
+            links: [
+                { label: "Live demo", href: "https://akuratikaustiki-violence-detection-rlvs.hf.space" },
+                { label: "Read the dissertation (PDF)", href: "assets/akurati-kaustiki-mtech-dissertation.pdf" }
+            ]
         },
         {
             id: "tinymagiq-engine",
@@ -259,6 +262,70 @@ export const portfolioData = {
             category: "AI / ML",
             description: "Object detection applied to identifying visible ageing signs in facial images.",
             tech: ["Machine Learning", "Object Detection"]
+        },
+        {
+            id: "sagar-asia",
+            title: "Sagar Asia Website",
+            subtitle: "Production · sagarasia.com",
+            org: "DigiYosha",
+            dates: "2024 – 2026",
+            category: "Web",
+            description: "Corporate site for a manufacturer of aluminium ladders, safety platforms, scaffolds, wind tower ladders and extrusion tooling — five business verticals and four product brands organised so an industrial buyer can find the right division quickly.",
+            highlights: [
+                "A section per vertical — ladders, aviation, professional access, wind energy, extrusion — each standing on its own.",
+                "Four product brands presented under one corporate identity without the divisions competing for attention.",
+                "Careers, leadership and company-story sections maintained by the client's own team."
+            ],
+            tech: ["Odoo", "Odoo Website Builder", "No-code", "SEO"],
+            links: [{ label: "sagarasia.com", href: "https://www.sagarasia.com/" }]
+        },
+        {
+            id: "isodhan",
+            title: "Isodhan Foundation Website",
+            subtitle: "Production · isodhan.org · freelance",
+            org: "Isodhan Foundation",
+            dates: "October 2025 – March 2026",
+            category: "Web",
+            description: "A public site for a cultural heritage foundation reviving Dhanurveda and the Gurukulam tradition — programme and camp listings, ritual and event information, donation routes, volunteer and careers pages, all editable by a non-technical team.",
+            highlights: [
+                "Around thirty content pages covering camps, training programmes, rituals and temple activity.",
+                "Donation and enquiry paths built so the foundation can collect support without a developer in the loop.",
+                "Structured so staff update content themselves — no code change for a new camp or event."
+            ],
+            tech: ["Odoo", "Odoo Website Builder", "No-code", "SEO"],
+            links: [{ label: "isodhan.org", href: "https://www.isodhan.org/" }]
+        },
+        {
+            id: "digiyosha-site",
+            title: "DigiYosha Company Website",
+            subtitle: "Production · digiyosha.com",
+            org: "DigiYosha",
+            dates: "2024",
+            category: "Web",
+            description: "The agency's own site, built while the company was starting up — a fourteen-page service catalogue covering digital advertising, SEO, content production, brand management and video, plus team, founder and blog sections.",
+            highlights: [
+                "Built during the company's founding period, contributing on the technical side as it got off the ground.",
+                "A page per service so each offering can rank and be linked to on its own.",
+                "Set up for the team to publish and update without developer involvement."
+            ],
+            tech: ["Odoo", "Odoo Website Builder", "No-code", "SEO"],
+            links: [{ label: "digiyosha.com", href: "https://www.digiyosha.com/" }]
+        },
+        {
+            id: "eshaa-design-studio",
+            title: "Eshaa Design Studio Website",
+            subtitle: "Production · eshaadesignstudio.com",
+            org: "DigiYosha",
+            dates: "2024 – 2026",
+            category: "Web",
+            description: "A portfolio and enquiry site for an interior design studio in Visakhapatnam — services, project gallery and team, built to turn browsing visitors into consultation enquiries.",
+            highlights: [
+                "Visual portfolio of completed interiors presented as the centre of the site.",
+                "Service breakdown — space planning, decoration, renovation, new construction — with a direct enquiry path.",
+                "Built no-code and handed over for the studio to maintain."
+            ],
+            tech: ["Odoo", "Odoo Website Builder", "No-code", "Branding", "SEO"],
+            links: [{ label: "eshaadesignstudio.com", href: "https://www.eshaadesignstudio.com/" }]
         }
     ],
 
