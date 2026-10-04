@@ -242,8 +242,42 @@ export const portfolioData = {
             subtitle: "Capstone · IIIT Hyderabad & TalentSprint",
             dates: "November 2023 – February 2024",
             category: "AI / ML",
-            description: "A multimodal captioning model — pre-trained CNN as the encoder, LSTM with attention as the decoder — generating natural-language descriptions of images.",
-            tech: ["CNN", "LSTM", "Attention", "PyTorch"]
+            featured: true,
+            description: "A model that looks at a photo and writes a one-sentence description of it. Two versions were built and compared on the same test set — a baseline CNN-LSTM and one with visual attention. Attention improved every score, and it makes the model explainable: for each word, the demo shows which part of the image the model was looking at.",
+            highlights: [
+                "Attention improved every metric on the 1,000-image Flickr8k test set — BLEU-4 nearly doubled (0.099 → 0.191) and CIDEr rose from 0.327 to 0.494.",
+                "Explainable by design: every generated word comes with a heatmap of the image regions the model relied on to choose it.",
+                "Caught a flaw in the original evaluation — the BLEU metric was comparing characters, not words — and re-scored both models correctly.",
+                "Deployed as a live demo on Hugging Face; a caption is generated in well under a second."
+            ],
+            detail: [
+                {
+                    heading: "How it works",
+                    body: "Captioning joins two problems: understanding an image and writing a sentence. The encoder, a pre-trained ResNet-50 CNN, turns the photo into numerical features. The decoder, an LSTM, writes the caption one word at a time, each word conditioned on the image and on the words already written, always choosing the most likely next word. Both models were trained on the 6,000 Flickr8k training images, each paired with five human-written captions."
+                },
+                {
+                    heading: "Baseline: no attention",
+                    body: "The whole image is compressed into a single 256-number summary that the LSTM sees once, at the start. Everything the decoder knows about the picture has to fit in that one vector, so detail is lost — small objects, secondary people, background. Trained for 30 epochs with a 2,532-word vocabulary."
+                },
+                {
+                    heading: "With attention",
+                    body: "The encoder keeps a 7×7 grid — 49 image regions, 2,048 features each — instead of one summary. Before every word, a Bahdanau (additive) attention layer scores each region against the sentence so far and hands the decoder a weighted blend, so it can focus on the dog when writing “dog” and on the ground when writing “grass”. Those same 49 weights are what the demo draws as a heatmap. Decoder: LSTM with 512 hidden units and 300-dimensional word embeddings, trained for 92 epochs."
+                },
+                {
+                    heading: "Results",
+                    body: "Scored on the 1,000 held-out Flickr8k test images against the same reference captions for both models. BLEU-n counts how many n-word phrases a caption shares with the human references; CIDEr rewards phrases specific to that image rather than ones common to every caption. With vs without attention: BLEU-1 0.608 vs 0.465, BLEU-4 0.191 vs 0.099, CIDEr 0.494 vs 0.327. The attention model also trained longer (92 vs 30 epochs), so not all of the gap is down to attention alone."
+                },
+                {
+                    heading: "Getting the numbers right",
+                    body: "The original training notebooks fed raw strings to NLTK's BLEU, which then matched characters instead of words and inflated the scores. One evaluation script now scores both models word by word, lowercased and with punctuation removed. As a check, it reproduces each notebook's own recorded scores exactly when given that notebook's saved predictions."
+                },
+                {
+                    heading: "Deployment",
+                    body: "A Gradio app on Hugging Face Spaces (ZeroGPU), with both models side by side. The training vocabularies had never been saved, so they were rebuilt deterministically from the Flickr8k text files and verified against values the notebooks printed. The app refuses to load a checkpoint whose output size disagrees with its vocabulary — that mismatch produces fluent nonsense rather than an error — and uses a fixed centre crop so the same image always gets the same caption."
+                }
+            ],
+            tech: ["PyTorch", "ResNet-50", "LSTM", "Bahdanau attention", "Gradio", "Hugging Face Spaces", "spaCy"],
+            links: [{ label: "Live demo", href: "https://huggingface.co/spaces/akuratikaustiki/image-captioning" }]
         },
         {
             id: "sentiment-analysis",
